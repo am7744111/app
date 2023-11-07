@@ -1,0 +1,71 @@
+<html>
+<head>
+<meta charset="utf-8" />
+<title>JS加密解密</title>
+</head>
+<body>
+  <h1> 加密解密 </h1>
+  <!-- <input type="text" id="secret" /> -->
+  <textarea id="secret" cols="60" rows="10"></textarea>
+  <br>
+  <input type="button" value="加密" onclick="encode()">
+  <input type="button" value="解密" onclick="decode();">
+<script>
+//来源 https://www.jb51.net/article/141307.htm
+ 
+// 加密
+function encode() {
+    // var s = secret.value;
+    // s 是一个字符串， 类型： String
+    // 根据 s 来创建一个字符串对象
+    // str 的类型是: Object
+    // var str = new String(s);
+    // length 是获取字符串对象的长度，也就是说有多少个字符
+    // str.length
+    var str = secret.value;
+    var r = "";
+    // string 类型的可以当做字符串对象来用
+    for (var i = 0; i < str.length; i++) {
+        // 取出下标为 i 字符的编码
+        var code = str.charCodeAt(i);
+        // 将字符对应的编码，拼接到一个空字符串上
+        r += code;
+        // 每个符号后，添加 , 分割
+        r += ",";
+    }
+    // secret.value 
+    // 设置输入框的内容为 r
+    secret.value = r;
+}
+// 使用到知识点(1)---如何将一个 数字 转换成对应的 字符
+// String.fromCharCode 
+// 函数功能： 将 数字 转换成对应的 字符
+// String 其实是系统的一个对象
+// document.write(  String.fromCharCode(97) );
+ 
+ 
+// 解密
+function decode() {
+    // 获取文本框中的字符串
+    // 例如： 96,97,98
+    var str = secret.value;
+    // 思路：
+    // 1. 按照 , 分割字符串
+    // 2. 将每个 分割的子字符串 转换成 数字，再转换成 字符
+    //   96 97 98
+    // 3. 将还原的字符，拼接在一起，再设置到 input 中去
+    var arr = str.split(",");
+    // 用于拼接结果的
+    var r = "";
+    for (var i = 0; i < arr.length; i++) {
+        // 获取加密后的 字符串的编码，是一个数字
+        var code = parseInt(arr[i]);
+        r += String.fromCharCode(code);
+    }
+    // 将拼接后的结果，设置到 input 中
+    secret.value = r;
+}
+ 
+</script> 
+</body>
+</html>
